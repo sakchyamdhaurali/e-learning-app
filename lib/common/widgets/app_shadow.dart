@@ -5,10 +5,14 @@ BoxDecoration appBoxShadow(
     {Color color = AppColors.primaryElement, 
      double radius= 15, 
      double sR=1, 
-     double bR=2}) {
+     double bR=2,
+     BoxBorder? border
+     
+     }) {
   return BoxDecoration(
     // color: Colors.transparent,
     color: color,
+    border: border,
     borderRadius: BorderRadius.circular(radius),
     boxShadow: [
         BoxShadow(
@@ -23,3 +27,16 @@ BoxDecoration appBoxShadow(
     ],
   );
 }
+
+BoxDecoration appBoxShadowTextField(
+    {Color color = AppColors.primaryBackground, 
+     double radius= 15, 
+    Color borderColor = AppColors.primaryFourElementText
+    }) {
+  return BoxDecoration(
+    color: color,
+    borderRadius: BorderRadius.circular(radius),
+    border: Border.all(color:borderColor),
+  );
+}
+
