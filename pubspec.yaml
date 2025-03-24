@@ -40,6 +40,7 @@ dependencies:
   riverpod_generator: ^2.6.5
   build_runner: ^2.4.15
   riverpod_annotation: ^2.6.1
+  fluttertoast: ^8.2.12
 
 dev_dependencies:
   flutter_test:
