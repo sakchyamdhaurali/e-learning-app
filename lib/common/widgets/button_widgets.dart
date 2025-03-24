@@ -6,24 +6,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget appButton({
   buttonName,
-  isLogin= true,
-  
-  }) {
+  isLogin = true,
+  BuildContext? context,
+  void Function()? func,
+}) {
   return GestureDetector(
-    onTap: () {},
-
+    onTap: func,
     child: Container(
       width: 1000.w,
       height: 180.h,
       decoration: appBoxShadow(
-        color: isLogin? AppColors.primaryElement: Colors.white,
-        border: Border.all(
-          color: AppColors.primaryFourElementText
-        )
+        color: isLogin ? AppColors.primaryElement : Colors.white,
+        border: Border.all(color: AppColors.primaryFourElementText),
       ),
       child: Center(
         child: text16Normal(
-          text: buttonName, color:isLogin? AppColors.primaryBackground: AppColors.primaryText),
+          text: buttonName,
+          color: isLogin ? AppColors.primaryBackground : AppColors.primaryText,
+        ),
       ),
     ),
   );

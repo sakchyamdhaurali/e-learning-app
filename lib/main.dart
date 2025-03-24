@@ -1,4 +1,6 @@
+import 'package:elearning_app/common/widgets/app_styles.dart';
 import 'package:elearning_app/pages/sign_in/sign_in.dart';
+import 'package:elearning_app/pages/sign_up/sign_up.dart';
 import 'package:elearning_app/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,15 +25,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: AppTheme.appThemeData,
 
      
       initialRoute: "/",
       routes: {
         "/": (context)=> Welcome(),
         "/signIn" : (context)=> SignIn(),
+        "/signUp" : (context)=> SignUp(),
         
       },
       // home: Welcome(),  //initial route "/"
@@ -52,7 +53,7 @@ class MyHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //to get the current value from the provider
-    int count = ref.watch(appCount);
+    // int count = ref.watch(appCount);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -103,7 +104,7 @@ class MyHomePage extends ConsumerWidget {
 }
 
 class SecondPage extends ConsumerWidget {
-  const SecondPage({Key? key}) : super(key: key);
+  const SecondPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
