@@ -1,5 +1,7 @@
 import 'package:elearning_app/common/widgets/popup_message.dart';
 import 'package:elearning_app/pages/sign_up/notifier/signup_notifier.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +10,7 @@ class SignupController {
 
   SignupController({required this.ref});
 
-  void handleSignUp() {
+  void handleSignUp() async {
     var state = ref.read(registerNotifierProvider);
 
     String name = state.userName;
@@ -40,9 +42,32 @@ class SignupController {
       return;
     }
 
-    if (state.password != state.rePassword) {
+    if (state.password.isEmpty ||
+        state.rePassword.isEmpty ||
+        password.isEmpty ||
+        rePassword.isEmpty) {
+      toastInfo("Your password is empty");
+      return;
+    }
+
+    if (state.password != state.rePassword || password != rePassword) {
       toastInfo("Your password did not match");
       return;
     }
+
+    try {
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      if (kDebugMode) {
+        print(credential);
+      }
+
+      if (credential.user != null) {
+        await credential.user?.sendEmailVerification();
+        await credential.user?.updateDisplayName(name);
+
+      }
+    } catch (e) {}
   }
 }
