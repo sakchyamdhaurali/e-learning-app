@@ -4,16 +4,32 @@ import 'package:elearning_app/common/widgets/app_textfields.dart';
 import 'package:elearning_app/common/widgets/button_widgets.dart';
 import 'package:elearning_app/common/widgets/text_widgets.dart';
 import 'package:elearning_app/pages/sign_up/notifier/signup_notifier.dart';
+import 'package:elearning_app/pages/sign_up/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignUp extends ConsumerWidget {
+class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final regNotifier = ref.watch(registerNotifierProvider);
+  ConsumerState<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends ConsumerState<SignUp> {
+  late SignupController _controller;
+
+  @override
+  void initState() {
+    _controller = SignupController(ref: ref);
+    
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final regProvider = ref.watch(registerNotifierProvider);
     //regProvider
 
     return Container(
@@ -41,7 +57,10 @@ class SignUp extends ConsumerWidget {
                   iconName: "",
                   hintText: "Enter your username",
                   hideText: false,
-                  func: (value)=> ref.read(registerNotifierProvider.notifier).onUserNameChanged(value),
+                  func:
+                      (value) => ref
+                          .read(registerNotifierProvider.notifier)
+                          .onUserNameChange(value),
                 ),
 
                 SizedBox(height: 60.h),
@@ -51,7 +70,10 @@ class SignUp extends ConsumerWidget {
                   iconName: "assets/icons/user.png",
                   hintText: "Enter your email",
                   hideText: false,
-                  func: (value)=> ref.read(registerNotifierProvider.notifier).onUserEmailChanged(value),
+                  func:
+                      (value) => ref
+                          .read(registerNotifierProvider.notifier)
+                          .onUserEmailChange(value),
                 ),
 
                 SizedBox(height: 60.h),
@@ -61,8 +83,7 @@ class SignUp extends ConsumerWidget {
                   iconName: "assets/icons/lock.png",
                   hintText: "Enter your password",
                   hideText: true,
-                  func: (value)=> ref.read(registerNotifierProvider.notifier).onUserPasswordChanged(value),
-                
+                  func: (value)=> ref.read(registerNotifierProvider.notifier).onUserPasswordChange(value),
                 ),
 
                 SizedBox(height: 60.h),
@@ -72,9 +93,7 @@ class SignUp extends ConsumerWidget {
                   iconName: "assets/icons/lock.png",
                   hintText: "Confirm your password",
                   hideText: true,
-                  func: (value)=> ref.read(registerNotifierProvider.notifier).onUserrePasswordChanged(value),
-                
-                  
+                   func: (value)=> ref.read(registerNotifierProvider.notifier).onUserrePasswordChange(value),
                 ),
 
                 Container(
@@ -94,6 +113,7 @@ class SignUp extends ConsumerWidget {
                     buttonName: "Sign Up",
                     context: context,
                     isLogin: true,
+                    func: ()=> _controller.handleSignUp(),
                   ),
                 ),
               ],
