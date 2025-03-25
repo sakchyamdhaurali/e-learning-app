@@ -21,7 +21,9 @@ class SignupController {
     print("Your rePassword is $rePassword");
 
     if (state.password != state.rePassword) {
-      print("your password does not match");
+    
     }
+
+
   }
 }
